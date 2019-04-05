@@ -30,7 +30,7 @@ import (
 
 // helmfsCmd represents the helmfs command
 var helmfsCmd = &cobra.Command{
-	Use:   "configfs",
+	Use:   "helmfs",
 	Short: "mount pligos configuration, secrets locally",
 	Long: `this allows mounting configurations, secrets foundin a
 pligos configuration to the local filesystem. This way configuration,

@@ -2,6 +2,8 @@ package helm
 
 import (
 	"io/ioutil"
+	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/golang/protobuf/ptypes/any"
@@ -21,7 +23,13 @@ func (c *Creator) Save(config pligos.CreateConfig, dest string) error {
 		return err
 	}
 
-	return chartutil.SaveDir(chrt, dest)
+	if err := os.RemoveAll(dest); err != nil {
+		return err
+	}
+
+	chrt.Metadata.Name = filepath.Base(dest)
+
+	return chartutil.SaveDir(chrt, filepath.Dir(dest))
 }
 
 func (c *Creator) Create(config pligos.CreateConfig) (*chart.Chart, error) {

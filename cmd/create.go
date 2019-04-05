@@ -52,5 +52,5 @@ func init() {
 	createCmd.Flags().StringVarP(&chartPath, "output", "o", "", "output directory")
 	createCmd.MarkFlagRequired("output")
 
-	helmCmd.AddCommand(createCmd)
+	rootCmd.AddCommand(createCmd)
 }
