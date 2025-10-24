@@ -1,7 +1,7 @@
 package applicationconfig
 
 import (
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	yaml "gopkg.in/yaml.v2"
@@ -35,7 +35,7 @@ type Dependency struct {
 }
 
 func ReadPligosConfig(pligosPath string, contextName string) (PligosConfig, error) {
-	configFile, err := ioutil.ReadFile(filepath.Join(pligosPath, "pligos.yaml"))
+	configFile, err := os.ReadFile(filepath.Join(pligosPath, "pligos.yaml"))
 	if err != nil {
 		return PligosConfig{}, err
 	}
