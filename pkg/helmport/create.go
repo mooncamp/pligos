@@ -1,7 +1,6 @@
 package helmport
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -39,7 +38,7 @@ func SwitchContext(c *chart.Chart, path string) error {
 	}
 
 	for _, e := range c.Templates {
-		if err := ioutil.WriteFile(filepath.Join(path, e.Name), e.Data, 0644); err != nil {
+		if err := os.WriteFile(filepath.Join(path, e.Name), e.Data, 0644); err != nil {
 			return err
 		}
 	}
@@ -48,7 +47,7 @@ func SwitchContext(c *chart.Chart, path string) error {
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(filepath.Join(path, "values.yaml"), bytes, 0644)
+	return os.WriteFile(filepath.Join(path, "values.yaml"), bytes, 0644)
 }
 
 func Transform(p pligos.Pligos) (*chart.Chart, error) {

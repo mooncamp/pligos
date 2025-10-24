@@ -1,7 +1,7 @@
 package applicationconfig
 
 import (
-	"io/ioutil"
+	"os"
 
 	yaml "gopkg.in/yaml.v2"
 	"realcloud.tech/pligos/pkg/maputil"
@@ -22,7 +22,7 @@ func mergeMaps(a, b map[string]interface{}) map[string]interface{} {
 }
 
 func createSchema(schemaPath string, types map[string]interface{}) (map[string]interface{}, error) {
-	buf, err := ioutil.ReadFile(schemaPath)
+	buf, err := os.ReadFile(schemaPath)
 	if err != nil {
 		return nil, err
 	}
@@ -39,7 +39,7 @@ func openTypes(types []string) (map[string]interface{}, error) {
 	res := make(map[string]interface{})
 
 	for _, e := range types {
-		buf, err := ioutil.ReadFile(e)
+		buf, err := os.ReadFile(e)
 		if err != nil {
 			return nil, err
 		}

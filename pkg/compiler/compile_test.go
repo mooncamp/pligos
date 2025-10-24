@@ -1,8 +1,7 @@
 package compiler
 
-//go:generate go-bindata -pkg compiler testdata/...
-
 import (
+	_ "embed"
 	"testing"
 
 	"realcloud.tech/pligos/pkg/maputil"
@@ -10,6 +9,24 @@ import (
 	"github.com/stretchr/testify/assert"
 	yaml "gopkg.in/yaml.v2"
 )
+
+//go:embed testdata/a/schema.yaml
+var aSchemaYAML []byte
+
+//go:embed testdata/a/pligos.yaml
+var aPligosYAML []byte
+
+//go:embed testdata/a/result.yaml
+var aResultYAML []byte
+
+//go:embed testdata/b/schema.yaml
+var bSchemaYAML []byte
+
+//go:embed testdata/b/pligos.yaml
+var bPligosYAML []byte
+
+//go:embed testdata/b/result.yaml
+var bResultYAML []byte
 
 func testCompile(schemaYaml, pligosYaml, resultYaml []byte, t *testing.T) {
 	var schema map[string]interface{}
@@ -47,17 +64,9 @@ func testCompile(schemaYaml, pligosYaml, resultYaml []byte, t *testing.T) {
 }
 
 func Test_compile_a(t *testing.T) {
-	schemaYaml := MustAsset("testdata/a/schema.yaml")
-	pligosYaml := MustAsset("testdata/a/pligos.yaml")
-	resultYaml := MustAsset("testdata/a/result.yaml")
-
-	testCompile(schemaYaml, pligosYaml, resultYaml, t)
+	testCompile(aSchemaYAML, aPligosYAML, aResultYAML, t)
 }
 
 func Test_compile_b(t *testing.T) {
-	schemaYaml := MustAsset("testdata/b/schema.yaml")
-	pligosYaml := MustAsset("testdata/b/pligos.yaml")
-	resultYaml := MustAsset("testdata/b/result.yaml")
-
-	testCompile(schemaYaml, pligosYaml, resultYaml, t)
+	testCompile(bSchemaYAML, bPligosYAML, bResultYAML, t)
 }
